@@ -3,6 +3,10 @@ import javax.swing.JFrame;
 import com.mazer.gaming.utils.GameConstants;
 public class GameFrame  extends JFrame implements GameConstants{
 
+/**
+	 * @param
+	 */
+	private static final long serialVersionUID = 1L;
 GameFrame()
 	{
 		setTitle(Title);
@@ -16,6 +20,7 @@ GameFrame()
 	}
 public static void main(String[] args) {
 		
+@SuppressWarnings("unused")
 GameFrame frame = new GameFrame();
 	}
 

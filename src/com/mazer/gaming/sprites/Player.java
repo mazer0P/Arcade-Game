@@ -1,37 +1,22 @@
 package com.mazer.gaming.sprites;
 
 import java.awt.Graphics;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
-import com.mazer.gaming.utils.GameConstants;
-
-public class Player implements GameConstants {
-	private int x;
-	private int y;
-	private int w;
-	private int h;
-	private int speed;
-	private BufferedImage goku;
+public class Player extends PartCom  {
+	protected BufferedImage goku;
 	private BufferedImage loadPlayer[] = new BufferedImage[4];
 	private BufferedImage loadKick[] = new BufferedImage[3];
 	private BufferedImage loadPunch[] = new BufferedImage[3];
 	private BufferedImage loadMpunch[] = new BufferedImage[4];
 	private BufferedImage loadJump[] = new BufferedImage[4];
-	private int index = 0;
-	int CurrentMove = WALK;
 	int force = 0;
 	private boolean isJumping =false;
 	
-public int getCurrentMove() {
-	return CurrentMove;
-}
-public void setCurrentMove(int currentMove) {
-	this.CurrentMove = currentMove;
-	index=0;
-}
+	
 public Player(){
 	x = 100;
 	h = 250;
@@ -106,12 +91,6 @@ public void fall()
 public void move() {
 	x=x+speed;
 }
-public int getSpeed() {
-	return speed;
-}
-public void setSpeed(int speed) {
-	this.speed = speed;
-}
 private BufferedImage showPlayer() {
 	if(index >2)
 	{
@@ -163,7 +142,8 @@ public BufferedImage showMpunch(){
 	index++;
 	return img;
 }
-public void paintPlayer(Graphics pen) {
+@Override
+public void paintSprite(Graphics pen) {
 	if(CurrentMove==REST) {
 		pen.drawImage(showPlayer(),x,y,w,h,null);	
 	}
@@ -181,5 +161,7 @@ public void paintPlayer(Graphics pen) {
 	}
 
 }
+
+
 
 }

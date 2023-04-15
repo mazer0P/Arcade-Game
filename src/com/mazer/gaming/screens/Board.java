@@ -2,6 +2,7 @@ package com.mazer.gaming.screens;
 
 import java.awt.Graphics;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -12,17 +13,24 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import com.mazer.gaming.sprites.Enemy;
 import com.mazer.gaming.sprites.Player;
 import com.mazer.gaming.utils.GameConstants;
-//import  sun.audio.*;  
-import  java.io.*;
+
 public class Board extends JPanel implements GameConstants {
+	/**
+	 * @param
+	 */
+	private static final long serialVersionUID = 1L;
 	BufferedImage bg ;
 	private Player player;
+	private Enemy  enemy;
 	private Timer timer;
 	
 	public Board(){
-		player = new Player();    //player class constructor
+		player = new Player(); //player class constructor
+		enemy = new Enemy();
 		loadBG();                 //background load
 		setFocusable(true);
 		bindEvents();//starts recording key's activity
@@ -57,13 +65,13 @@ public class Board extends JPanel implements GameConstants {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_LEFT) {
+				if(e.getKeyCode()==KeyEvent.VK_A) {
 					player.setSpeed(-5);
 					player.move();
 //					
 
 				}
-				else if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
+				else if(e.getKeyCode()==KeyEvent.VK_D) {
 					player.setSpeed(5);
 					player.move();
 //					repaint();
@@ -73,10 +81,10 @@ public class Board extends JPanel implements GameConstants {
 					player.setCurrentMove(JUMP);
 					
 				}
-				else if(e.getKeyCode()==KeyEvent.VK_D) {
+				else if(e.getKeyCode()==KeyEvent.VK_X) {
 						player.setCurrentMove(KICK);
 				}
-				else if(e.getKeyCode()==KeyEvent.VK_A) {
+				else if(e.getKeyCode()==KeyEvent.VK_Q) {
 					player.setCurrentMove(PUNCH);
 			}
 				else if(e.getKeyCode()==KeyEvent.VK_M) {
@@ -84,8 +92,23 @@ public class Board extends JPanel implements GameConstants {
 					player.setSpeed(10);
 					player.move();
 			}
+				else if(e.getKeyCode()==KeyEvent.VK_LEFT) {
+					enemy.setCurrentMove(WALK);
+					enemy.setSpeed(-15);
+					enemy.move();
+				}
+					else if(e.getKeyCode()==KeyEvent.VK_L) {
+						enemy.setCurrentMove(KICK);
+						enemy.setSpeed(-90);
+//						enemy.showKick();
 				
 			}
+					else if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
+						enemy.setCurrentMove(WALK);
+						enemy.setSpeed(15);
+						enemy.move();
+					}
+				}
 		});
 	}
 	private void loadBG() {
@@ -102,20 +125,10 @@ public class Board extends JPanel implements GameConstants {
 	public void paintComponent(Graphics pen) {
 		super.paintComponent(pen);  //removes every content on board
 		paintBG(pen);               //paints background
-		player.paintPlayer(pen);    //paints player
+		player.paintSprite(pen);//paints player
+		enemy.paintSprite(pen);
 	}
 	private void paintBG(Graphics pen) {
 		pen.drawImage(bg,0,0, GWIDTH, GHEIGHT, null);
 	}
-//	public void sound()
-//	{
-//		InputStream in = new FileInputStream();
-//		// Create an AudioStream object from the input stream.
-//		AudioStream as = new AudioStream(in);         
-//		// Use the static class member "player" from class AudioPlayer to play
-//		// clip.
-//		AudioPlayer.player.start(as);            
-//		// Similarly, to stop the audio.
-//		AudioPlayer.player.stop(as);
-//	}
 }

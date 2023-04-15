@@ -1,4 +1,4 @@
-          package com.mazer.gaming.screens;
+package com.mazer.gaming.screens;
 
 import java.awt.Graphics;
 
@@ -30,7 +30,7 @@ public class Board extends JPanel implements GameConstants {
 		
 	}
 	public void GameLoop() {
-		timer = new Timer(100, new ActionListener() {
+		timer = new Timer(130, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -69,7 +69,9 @@ public class Board extends JPanel implements GameConstants {
 //					repaint();
 				}
 				else if (e.getKeyCode()==KeyEvent.VK_SPACE) {
-					player.jump();   
+					player.jump();
+					player.setCurrentMove(JUMP);
+					
 				}
 				else if(e.getKeyCode()==KeyEvent.VK_D) {
 						player.setCurrentMove(KICK);

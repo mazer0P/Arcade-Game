@@ -19,9 +19,12 @@ public class Player implements GameConstants {
 	private BufferedImage loadKick[] = new BufferedImage[3];
 	private BufferedImage loadPunch[] = new BufferedImage[3];
 	private BufferedImage loadMpunch[] = new BufferedImage[4];
+	private BufferedImage loadJump[] = new BufferedImage[4];
 	private int index = 0;
 	int CurrentMove = WALK;
 	int force = 0;
+	private boolean isJumping =false;
+	
 public int getCurrentMove() {
 	return CurrentMove;
 }
@@ -31,9 +34,9 @@ public void setCurrentMove(int currentMove) {
 }
 public Player(){
 	x = 100;
-	y = FLOOR;
-	w = 100;
 	h = 250;
+	y = FLOOR-h;
+	w = 100;
 	speed = 0;
 	try {
 		goku = ImageIO.read(Player.class.getResource("goku.png"));
@@ -45,6 +48,7 @@ public Player(){
 	loadKick();
 	loadPunch();
 	loadMpunch();
+	loadJump();
 	CurrentMove=REST;
 }
 public void loadPlayer()
@@ -53,6 +57,12 @@ public void loadPlayer()
 	loadPlayer[1] = goku.getSubimage(194, 105, 132, 278);
 	loadPlayer[2] = goku.getSubimage(347, 95, 125, 288);
 	loadPlayer[3] = goku.getSubimage(492, 88, 120, 281);
+}
+public void loadJump() {
+	loadJump[0] = goku.getSubimage(872, 384, 159, 256);
+	loadJump[1] = goku.getSubimage(1047, 368, 161, 288);
+	loadJump[2] = goku.getSubimage(1222, 364, 167, 290);
+	loadJump[3] = goku.getSubimage(872, 384, 159, 256);
 }
 public void loadKick() {
 	loadKick[0] = goku.getSubimage(836, 1309, 182, 257);
@@ -74,16 +84,24 @@ public void loadMpunch() {
 }
 public void jump()
 {
+//	System.out.println("jump");
+	if(!isJumping) {
 	force = -50;
 	y = y+force;
+	isJumping=true;
+	}
+	
 }
 public void fall()
 {
-	if(y>FLOOR-h) {
+//	System.out.println("fall");
+	if(y>=(FLOOR-h)) {
+		isJumping = false;
 		return;
 	}
 	force = force + GRAVITY;
 	y = y+force;
+	
 }
 public void move() {
 	x=x+speed;
@@ -100,7 +118,7 @@ private BufferedImage showPlayer() {
 		index=0;
 	}
 //	try {
-//		Thread.sleep(200);
+//		Thread.sleep(100);
 //	} catch (InterruptedException e) {
 //		// TO DO Auto-generated catch block
 //		e.printStackTrace();
@@ -108,6 +126,15 @@ private BufferedImage showPlayer() {
 	BufferedImage img = loadPlayer[index];
 	index++;
 	return   img;  //getting sub-image of sprite
+}
+private BufferedImage showJump(){
+	if(index>3) {
+		index=0;
+		CurrentMove=REST;
+	}
+	BufferedImage img = loadJump[index];
+	index++;
+	return img;
 }
 private BufferedImage showKick(){
 	if(index>2) {
@@ -148,6 +175,9 @@ public void paintPlayer(Graphics pen) {
 	}
 	else if(CurrentMove==MPUNCH) {
 		pen.drawImage(showMpunch(),x,y,w,h,null);
+	}
+	else if(CurrentMove==JUMP) {
+		pen.drawImage(showJump(),x,y,w,h,null);
 	}
 
 }

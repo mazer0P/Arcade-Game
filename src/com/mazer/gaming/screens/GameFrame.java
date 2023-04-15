@@ -1,12 +1,9 @@
 package com.mazer.gaming.screens;
-
 import javax.swing.JFrame;
-
 import com.mazer.gaming.utils.GameConstants;
-
 public class GameFrame  extends JFrame implements GameConstants{
 
-	GameFrame()
+GameFrame()
 	{
 		setTitle(Title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,7 +14,7 @@ public class GameFrame  extends JFrame implements GameConstants{
 		setVisible(true);
 		setResizable(false);
 	}
-	public static void main(String[] args) {
+public static void main(String[] args) {
 		
 GameFrame frame = new GameFrame();
 	}

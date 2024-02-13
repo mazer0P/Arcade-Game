@@ -12,5 +12,9 @@ public interface GameConstants {
 	int MPUNCH = 4;
 	int REST = 0;
 	int JUMP = 6;
-	int GRAVITY = 10;
+	int DAMAGE = 10;
+	int GRAVITY = 75;
+	int DEATH=-11;
+	int speed = 20;
+	static int MAX_HEALTH=500;
 }

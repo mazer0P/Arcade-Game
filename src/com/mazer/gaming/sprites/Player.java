@@ -1,7 +1,7 @@
 package com.mazer.gaming.sprites;
 
 import java.awt.Graphics;
-
+//import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -71,7 +71,7 @@ public void jump()
 {
 //	System.out.println("jump");
 	if(!isJumping) {
-	force = -50;
+	force = -150;
 	y = y+force;
 	isJumping=true;
 	}
@@ -120,6 +120,7 @@ private BufferedImage showKick(){
 		index=0;
 		CurrentMove=REST;
 	}
+	//this.setAttacking(true);
 	BufferedImage img = loadKick[index];
 	index++;
 	return img;
@@ -129,6 +130,7 @@ public BufferedImage showPunch(){
 		index=0;
 		CurrentMove=REST;
 	}
+	//isAttacking=true;
 	BufferedImage img = loadPunch[index];
 	index++;
 	return img;
@@ -138,6 +140,7 @@ public BufferedImage showMpunch(){
 		index=0;
 		CurrentMove=REST;
 	}
+	//this.setAttacking(true);
 	BufferedImage img = loadMpunch[index];
 	index++;
 	return img;
@@ -159,9 +162,14 @@ public void paintSprite(Graphics pen) {
 	else if(CurrentMove==JUMP) {
 		pen.drawImage(showJump(),x,y,w,h,null);
 	}
+	else if(CurrentMove==DAMAGE) {
+		pen.drawImage(showKick(),x,y,w,h,null);
 
 }
+	else {
+		pen.drawImage(showPlayer(), x,y,w,h, null);
+	}
 
-
+}
 
 }

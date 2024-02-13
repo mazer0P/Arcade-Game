@@ -17,11 +17,14 @@ GameFrame()
 		add(board);
 		setVisible(true);
 		setResizable(false);
+        board.requestFocusInWindow(); // Ensure the board has focus
+
 	}
 public static void main(String[] args) {
 		
 @SuppressWarnings("unused")
 GameFrame frame = new GameFrame();
+//SwingUtilities.invokeLater(() -> new GameFrame());
 	}
 
 }
